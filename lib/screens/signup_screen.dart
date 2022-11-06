@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:instagram_reel_clone/models/signup_functions.dart';
 
-import '../screens/signup_screen.dart';
+import '../screens/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  bool isLoading = false;
+
+  void onCreateAccount() async {
+    if (email.text.isNotEmpty && password.text.isNotEmpty) {
+      setState(() {
+        isLoading = true;
+      });
+
+      bool isAccountCreatedSuccessfully =
+          await SignupFunctions.createAccount(email.text, password.text);
+
+      if (isAccountCreatedSuccessfully) {
+        print("Account Created Successfully");
+      } else {
+        print("Something went wrong");
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 20.h,
             ),
-            customButton("Login"),
+            customButton("Create Account"),
           ],
         ),
       ),
@@ -47,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "New User? ",
+              "Already a User? ",
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -55,10 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
             InkWell(
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => SignupScreen()));
+                    context, MaterialPageRoute(builder: (_) => LoginScreen()));
               },
               child: Text(
-                "Signup",
+                "Login",
                 style: TextStyle(
                   fontSize: 15.sp,
                   color: Colors.blue,
@@ -72,17 +94,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget customButton(String text) {
-    return Container(
-      height: 40.h,
-      width: 320.w,
-      color: Colors.blue,
-      alignment: Alignment.center,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 15.sp,
-          fontWeight: FontWeight.w500,
+    return InkWell(
+      onTap: onCreateAccount,
+      child: Container(
+        height: 40.h,
+        width: 320.w,
+        color: Colors.blue,
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
