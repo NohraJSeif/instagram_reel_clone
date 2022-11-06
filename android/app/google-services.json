@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1056241489818",
+    "project_id": "instagram-reel-clone-34fab",
+    "storage_bucket": "instagram-reel-clone-34fab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056241489818:android:474cb50a68bc1cb9254c23",
+        "android_client_info": {
+          "package_name": "com.example.instagram_reel_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056241489818-it18sf94cofjsdaevmevb4fs3sbl18gp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA67_lJIYjTijljStOpNHQuvyGn0U92PCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056241489818-it18sf94cofjsdaevmevb4fs3sbl18gp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
