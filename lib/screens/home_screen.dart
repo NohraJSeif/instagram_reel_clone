@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/login_functions.dart';
+import './profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,6 +22,16 @@ class _HomeScreenState extends State<HomeScreen> {
               LoginFunctions.logout(context);
             },
             icon: const Icon(Icons.logout),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileScreen(),
+                  ));
+            },
+            icon: const Icon(Icons.account_box),
           )
         ],
       ),
