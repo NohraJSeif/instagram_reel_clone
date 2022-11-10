@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import './profile_update_screen.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -83,20 +85,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget customButton(bool isCurrentProfile) {
-    return Container(
-      height: 30.h,
-      width: 310.w,
-      decoration: BoxDecoration(
-        color: isCurrentProfile ? Colors.grey[300] : Colors.blue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        isCurrentProfile ? "Edit Profile" : "Follow",
-        style: TextStyle(
-          fontSize: 15.sp,
-          fontWeight: FontWeight.w500,
-          color: isCurrentProfile ? Colors.black : Colors.white,
+    return InkWell(
+      onTap: () {
+        if (isCurrentProfile) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ProfileUpdateScreen(),
+            ),
+          );
+        } else {
+          // Follow instruction
+        }
+      },
+      child: Container(
+        height: 30.h,
+        width: 310.w,
+        decoration: BoxDecoration(
+          color: isCurrentProfile ? Colors.grey[300] : Colors.blue,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          isCurrentProfile ? "Edit Profile" : "Follow",
+          style: TextStyle(
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
+            color: isCurrentProfile ? Colors.black : Colors.white,
+          ),
         ),
       ),
     );
