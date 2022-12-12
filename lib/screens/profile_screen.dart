@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +10,8 @@ import './loading_screen.dart';
 import 'search_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String userId;
+  const ProfileScreen({super.key, required this.userId});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -17,14 +19,17 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserModel? userModel;
+  bool get isCurrentUser =>
+      FirebaseAuth.instance.currentUser!.uid == widget.userId;
 
+  @override
   void initState() {
     super.initState();
     getCurrentUserDetails();
   }
 
   void getCurrentUserDetails() async {
-    userModel = await ProfileFunctions.getUserDetails();
+    userModel = await ProfileFunctions.getUserDetails(widget.userId);
     setState(() {});
   }
 
@@ -32,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: userModel == null
-          ? LoadingScreen()
+          ? const LoadingScreen()
           : Scaffold(
               body: SizedBox(
                 width: double.infinity,
@@ -142,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    customButton(true),
+                    customButton(isCurrentUser),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -181,7 +186,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         } else {
-          // Follow instruction
+          setState(() {
+            userModel!.followers = userModel!.followers + 1;
+          });
+          ProfileFunctions.onFollowAndUnFollow(true, widget.userId);
         }
       },
       child: Container(

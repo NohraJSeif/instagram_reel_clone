@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,7 +100,9 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                   Navigator.pop(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
+                      builder: (context) => ProfileScreen(
+                        userId: FirebaseAuth.instance.currentUser!.uid,
+                      ),
                     ),
                   );
                 },

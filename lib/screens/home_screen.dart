@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../models/login_functions.dart';
@@ -28,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ProfileScreen(),
+                    builder: (_) => ProfileScreen(
+                      userId: FirebaseAuth.instance.currentUser!.uid,
+                    ),
                   ));
             },
             icon: const Icon(Icons.account_box),
