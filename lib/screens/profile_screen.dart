@@ -6,6 +6,7 @@ import '../models/profile_functions.dart';
 import '../models/user_model.dart';
 import './profile_update_screen.dart';
 import './loading_screen.dart';
+import 'search_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -40,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: EdgeInsets.all(10.sp),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             userModel!.username,
@@ -48,6 +49,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w500,
                             ),
+                          ),
+                          const Expanded(
+                            child: SizedBox(),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showSearch(
+                                context: context,
+                                delegate: SearchScreen(),
+                              );
+                            },
+                            icon: const Icon(Icons.search),
                           ),
                           IconButton(
                             onPressed: () {},
